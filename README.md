@@ -9,7 +9,7 @@ Just place the ``scriptloader.lua`` in your scripts folder and replace the follo
 
 Develop using the script loader
 ======
-I will put up a wiki any time now to list all of the hooks and how to use them, and how to format your script.
+Here's a unfinished wiki of everything about the scriptLoader. https://github.com/SaintWish/tes3mp_scriptloader/wiki You can always look at other scripts for a example of how to use the scriptloader.
 
 Commits and bug reports.
 ======
