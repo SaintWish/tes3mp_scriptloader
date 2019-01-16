@@ -1,6 +1,6 @@
 tes3mp_scriptloader
 ======
-The script loader makes it much easier and cleaner to install scripts and remove them. Also, it allows developers to easily test their scripts and develop them without having to modify "core" file IE: serverCore.lua.
+The script loader makes it much easier and cleaner to install scripts and remove them. Also, it allows developers to easily test their scripts and develop them without having to modify "core" files IE: serverCore.lua.
 I'm sorry, I'm absolutely rubbish at writing descriptions.
 
 Installing
