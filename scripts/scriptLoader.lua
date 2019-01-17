@@ -13,7 +13,7 @@ local function requireScript(file)
     return true
   else
     print("Could not load script with the name of \""..file.."\".")
-    print(err)
+    tes3mp.LogMessage(enumerations.log.ERROR, err)
     return false
   end
 end

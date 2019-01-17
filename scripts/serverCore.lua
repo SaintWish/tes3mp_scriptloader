@@ -353,7 +353,7 @@ function OnPlayerConnect(pid)
     else
         tes3mp.LogAppend(enumerations.log.INFO, "- New player is named " .. playerName)
         eventHandler.OnPlayerConnect(pid, playerName)
-        scriptLoader.CallHook("OnPlayerConnect" ,pid)
+        scriptLoader.CallHook("OnPlayerConnect", pid)
     end
 end
 

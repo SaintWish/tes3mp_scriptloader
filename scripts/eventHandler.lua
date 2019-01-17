@@ -194,7 +194,6 @@ eventHandler.OnPlayerSendMessage = function(pid, message)
         if message:sub(1, 1) == '/' or message:sub(1, 1) == '/' then
             local command = (message:sub(2, #message)):split(" ")
             commandHandler.ProcessCommand(pid, command)
-            --scriptLoader.CallHook("ProcessCommand", pid, command, message)
             scriptLoader.ProcessCommand(pid, command, message)
 
         else
