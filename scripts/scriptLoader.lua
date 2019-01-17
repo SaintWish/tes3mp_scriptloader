@@ -1,3 +1,4 @@
+scripts = {} --The global table for scripts.
 local scriptLoader = {} --Functions
 local scriptMeta = {} --Our object
 local Hooks = {} --Hooks

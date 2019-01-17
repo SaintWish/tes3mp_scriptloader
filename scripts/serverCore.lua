@@ -34,7 +34,6 @@ frametimeMultiplier = nil
 updateTimerId = nil
 
 banList = {}
-scripts = {}
 
 if (config.databaseType ~= nil and config.databaseType ~= "json") and doesModuleExist("luasql." .. config.databaseType) then
 
