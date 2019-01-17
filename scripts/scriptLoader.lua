@@ -110,7 +110,7 @@ function scriptLoader.OverwriteDefaultChat()
   return disableDefaultChat
 end
 
-function scriptLoader.ProcessCommands(pid, cmd, message)
+function scriptLoader.ProcessCommand(pid, cmd, message)
   --Some preliminary stuff taken from the built in ProcessCommand function
   --Feel free to change stuff if you know what you're doing.
   if cmd[1] == nil then
