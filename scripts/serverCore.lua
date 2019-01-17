@@ -234,10 +234,7 @@ function OnServerPostInit()
     if not config.allowWait then
         waitRuleString = "not " .. waitRuleString
     end
-
-    tes3mp.SetRuleString("Download ESP", "https://bit.ly/2Ppggw6")
-	  tes3mp.SetRuleString("Website", "http://resdayn.boards.net/")
-	  tes3mp.SetRuleString("Discord", "https://discord.gg/aWSgHtR")
+	
     tes3mp.SetRuleString("enforcePlugins", tostring(config.enforcePlugins))
     tes3mp.SetRuleString("ignoreScriptErrors", tostring(config.ignoreScriptErrors))
     tes3mp.SetRuleValue("difficulty", config.difficulty)
