@@ -137,7 +137,7 @@ function scriptLoader.ProcessCommand(pid, cmd, message)
       moderator = true
   end
 
-  scriptLoader.CallHook("ProcessCommand", pid, command, message, serverOwner, admin, moderator)
+  scriptLoader.CallHook("ProcessCommand", pid, cmd, message, serverOwner, admin, moderator)
 end
 
 --[[
