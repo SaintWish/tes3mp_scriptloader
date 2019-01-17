@@ -234,7 +234,7 @@ function OnServerPostInit()
     if not config.allowWait then
         waitRuleString = "not " .. waitRuleString
     end
-	
+
     tes3mp.SetRuleString("enforcePlugins", tostring(config.enforcePlugins))
     tes3mp.SetRuleString("ignoreScriptErrors", tostring(config.ignoreScriptErrors))
     tes3mp.SetRuleValue("difficulty", config.difficulty)
@@ -559,7 +559,9 @@ end
 function OnObjectActivate(pid, cellDescription)
     tes3mp.LogMessage(enumerations.log.INFO, "Called \"OnObjectActivate\" for " .. logicHandler.GetChatName(pid) ..
         " and cell " .. cellDescription)
-    eventHandler.OnObjectActivate(pid, cellDescription)
+    if(scriptLoader.GetConfig("disableObjectActivate") == false) then
+      eventHandler.OnObjectActivate(pid, cellDescription)
+    end
     scriptLoader.CallHook("OnObjectActivate", pid, cellDescription)
 end
 

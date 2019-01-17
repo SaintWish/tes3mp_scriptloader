@@ -197,7 +197,7 @@ eventHandler.OnPlayerSendMessage = function(pid, message)
             scriptLoader.ProcessCommand(pid, command, message)
 
         else
-            if(scriptLoader.OverwriteDefaultChat() == false) then
+            if(scriptLoader.GetConfig("disableDefaultChat") == false) then
               local message = color.White .. logicHandler.GetChatName(pid) .. ": " .. message .. "\n"
 
               -- Check for chat overrides that add extra text

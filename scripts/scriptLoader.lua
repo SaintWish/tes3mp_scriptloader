@@ -2,8 +2,9 @@ local scriptLoader = {} --Functions
 local scriptMeta = {} --Our object
 local Hooks = {} --Hooks
 local Methods = {}
-
-local disableDefaultChat = true
+local Config = {}
+Config["disableDefaultChat"] = false
+Config["disableObjectActivate"] = false
 
 local function requireScript(file)
   local res,err = pcall(require, file)
@@ -106,8 +107,12 @@ end
 --[[
   Overwrite functions
 ]]
-function scriptLoader.OverwriteDefaultChat()
-  return disableDefaultChat
+function scriptLoader.GetConfig(opt)
+  if(Config[opt]) then
+    return Config[opt]
+  else
+    return false
+  end
 end
 
 function scriptLoader.ProcessCommand(pid, cmd, message)
