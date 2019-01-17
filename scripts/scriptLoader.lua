@@ -1,6 +1,7 @@
 local scriptLoader = {} --Functions
 local scriptMeta = {} --Our object
 local Hooks = {} --Hooks
+local Methods = {}
 
 local disableDefaultChat = true
 
