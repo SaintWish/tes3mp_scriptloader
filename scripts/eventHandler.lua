@@ -168,6 +168,7 @@ eventHandler.OnGUIAction = function(pid, idGui, data)
                     tes3mp.BanAddress(tes3mp.GetIP(pid))
                 else
                     Players[pid]:FinishLogin()
+                    scriptLoader.CallHook("OnPlayerLoginFinish", pid)
                     Players[pid]:Message("You have successfully logged in.\n" .. config.chatWindowInstructions)
                 end
             elseif idGui == guiHelper.ID.REGISTER then
