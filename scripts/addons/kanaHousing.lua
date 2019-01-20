@@ -722,7 +722,7 @@ end
 showPlayerSettingsAddPrompt = function(pid)
 	local message = "Type the name of the character to add as co-owner"
 
-	return tes3mp.InputDialog(pid, config.PlayerAddCoOwnerGUI, message,"")
+	return tes3mp.InputDialog(pid, config.PlayerAddCoOwnerGUI, message, "")
 end
 
 local function onPlayerSettingsAddPrompt(pid, data)
@@ -1274,7 +1274,7 @@ SCRIPT:AddMethod("IsLocked", function(houseName)
 end)
 
 SCRIPT:AddHook("OnServerPostInit", "KH_ServerInit", function()
-  local file = io.open(tes3mp.GetModDir() .. "/kanaHousing.json", "r")
+  local file = io.open(_GetModDir() .. "/kanaHousing.json", "r")
 	if file ~= nil then
 		io.close()
 		Load()

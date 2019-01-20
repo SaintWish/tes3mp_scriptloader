@@ -105,7 +105,7 @@ end
 local function showPromptGUI(pid)
 	local message = "[" .. playerCurrentMode[tes3mp.GetName(pid)] .. "] - Enter a number to add/subtract."
 
-	tes3mp.InputDialog(pid, config.PromptId, message)
+	tes3mp.InputDialog(pid, config.PromptId, message, "")
 end
 
 local function onEnterPrompt(pid, data)

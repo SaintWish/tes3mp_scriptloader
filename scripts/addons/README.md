@@ -8,6 +8,8 @@ Mod Authors
   * decorateHelp
   * kanaFurniture (Requires decorateHelp)
   * kanaHousing (Requires kanaFurniture)
+* Mods by [David-AW](https://github.com/David-AW)
+  * rpChat
 
 Bug-Reporting
 ======
