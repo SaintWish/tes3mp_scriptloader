@@ -521,37 +521,40 @@ function SendLocalMessage(pid, message, useName, whisper, yell)
 	local pX = tes3mp.GetPosX(pid)
 	local pZ = tes3mp.GetPosY(pid)
 
-	if tes3mp.IsInExterior(pid) == true then
-		local cellX = tonumber(string.sub(myCellDescription, 1, string.find(myCellDescription, ",") - 1))
-		local cellY = tonumber(string.sub(myCellDescription, string.find(myCellDescription, ",") + 2))
+  --Because of modded clients.
+  if myCellDescription ~= nil and myCellDescription ~= '' then
+  	if tes3mp.IsInExterior(pid) == true then
+  		local cellX = tonumber(string.sub(myCellDescription, 1, string.find(myCellDescription, ",") - 1))
+  		local cellY = tonumber(string.sub(myCellDescription, string.find(myCellDescription, ",") + 2))
 
-		local firstCellX = cellX - localChatCellRadius
-		local firstCellY = cellY + localChatCellRadius
+  		local firstCellX = cellX - localChatCellRadius
+  		local firstCellY = cellY + localChatCellRadius
 
-		local length = localChatCellRadius * 2
+  		local length = localChatCellRadius * 2
 
-		for x = 0, length, 1 do
-			for y = 0, length, 1 do
-				-- loop through all y inside of x
-				local tempCell = (x+firstCellX)..", "..(firstCellY-y)
-				-- send message to each player in cell
-				if LoadedCells[tempCell] ~= nil then
-					if useName == true then
-						SendMessageToAllInCellWithLanguage(pid, pX, pZ, tempCell, message, whisper, yell)
-					else
-						SendMessageToAllInCell(pX, pZ, tempCell, ""..firstToUpper(periodAtEnd(message)).."\n")
-					end
-				end
-			end
-		end
-	else
+  		for x = 0, length, 1 do
+  			for y = 0, length, 1 do
+  				-- loop through all y inside of x
+  				local tempCell = (x+firstCellX)..", "..(firstCellY-y)
+  				-- send message to each player in cell
+  				if LoadedCells[tempCell] ~= nil then
+  					if useName == true then
+  						SendMessageToAllInCellWithLanguage(pid, pX, pZ, tempCell, message, whisper, yell)
+  					else
+  						SendMessageToAllInCell(pX, pZ, tempCell, ""..firstToUpper(periodAtEnd(message)).."\n")
+  					end
+  				end
+  			end
+  		end
+  	else
 
-		if useName == true then
-			SendMessageToAllInCellWithLanguage(pid, pX, pZ, myCellDescription, message, whisper, yell)
-		else
-			SendMessageToAllInCell(pX, pZ, myCellDescription, ""..firstToUpper(periodAtEnd(message)).."\n")
-		end
-	end
+  		if useName == true then
+  			SendMessageToAllInCellWithLanguage(pid, pX, pZ, myCellDescription, message, whisper, yell)
+  		else
+  			SendMessageToAllInCell(pX, pZ, myCellDescription, ""..firstToUpper(periodAtEnd(message)).."\n")
+  		end
+  	end
+  end
 end
 
 function SendMessageToAllInCellWithLanguage(pid1, pX, pZ, cellDescription, message, whisper, yell)
