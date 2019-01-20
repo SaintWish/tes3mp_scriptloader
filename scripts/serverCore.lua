@@ -8,6 +8,14 @@ else
     jsonInterface.setLibrary(io)
 end
 
+function _GetModDir()
+  if(tes3mp.GetOperatingSystemType() == "Windows") then
+    return tes3mp.GetModDir()
+  else
+    return os.getenv("MOD_DIR")
+  end
+end
+
 require("color")
 require("config")
 class = require("classy")
