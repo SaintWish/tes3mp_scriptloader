@@ -682,10 +682,10 @@ function IsLocalChatEnabled()
 end
 
 local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = 8
-SCRIPT.Name = "Vote Kick"
+SCRIPT.ID = "rpchat"
+SCRIPT.Name = "rpChat"
 SCRIPT.Author = "David-AW, fixes from Wishbone"
-SCRIPT.Desc = "Vote kick all of the DMs"
+SCRIPT.Desc = "Adds localchat, ooc and looc to tes3mp"
 
 SCRIPT:AddHook("ScriptInit", "rpChat_Init", function()
 	local home = _GetModDir().."/style/"
