@@ -10,6 +10,7 @@ Mod Authors
   * kanaHousing (Requires kanaFurniture)
 * Mods by [David-AW](https://github.com/David-AW)
   * rpChat
+  * disableAssassins
 
 Bug-Reporting
 ======
