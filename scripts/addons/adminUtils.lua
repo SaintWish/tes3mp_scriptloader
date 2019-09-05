@@ -1,5 +1,4 @@
-local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = "adminutils"
+local SCRIPT = SCRIPT
 SCRIPT.Name = "Admin Utilities"
 SCRIPT.Author = "Wishbone"
 SCRIPT.Desc = "Admin utility commands."
@@ -27,4 +26,4 @@ SCRIPT:AddHook("ProcessCommand", "VK_Commands", function(pid, cmd, message, isOw
   end
 end)
 
-SCRIPT:Register();
+SCRIPT:Register()

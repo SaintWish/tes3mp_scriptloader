@@ -1222,8 +1222,7 @@ end
 
 -------------------
 
-local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = "kanahousing"
+local SCRIPT = SCRIPT
 SCRIPT.Name = "KanaHousing"
 SCRIPT.Author = "Atkana"
 SCRIPT.Desc = "Houses."

@@ -1,10 +1,19 @@
+--[[
+ https://github.com/SaintWish/tes3mp_scriptloader
+ Created by SaintWish license under GPL-2.0.
+ Feel free to do whatever you want with it, just maintain this notice.
+]]
 scripts = {} --The global table for scripts.
+
 local scriptLoader = {} --Functions
 local scriptMeta = {} --Our object
-local Hooks = {} --Hooks
-local Methods = {}
+scriptMeta.__index = scriptMeta
+
+--Internals
+local Hooks = {} --Table for hooks.
+local Methods = {} --Table for methods.
 local Config = {}
-Config["disableDefaultChat"] = false
+Config["disableDefaultChat"] = false --Need to set this to true if you're using rpChat
 Config["disableObjectActivate"] = false
 
 local function requireScript(file)
@@ -20,15 +29,58 @@ local function requireScript(file)
   end
 end
 
+--Credits to https://stackoverflow.com/questions/1340230/check-if-directory-exists-in-lua
+local function fileExists(file)
+  local ok, err, code = os.rename(file, file)
+  if not ok then
+    if code == 13 then
+      tes3mp.LogMessage(enumerations.log.ERROR, "Didn't have permission to view "..file..", but file exists!")
+      return true
+    end
+  end
+
+  return ok, err
+end
+
+local function isDir(path)
+  return fileExists(path.."/")
+end
+
+function scriptLoader.Load(id, path, singleFile)
+  local SCRIPT = {}
+  setmetatable(SCRIPT, scriptMeta)
+
+  SCRIPT.Hooks = {}
+  SCRIPT.Methods = {}
+
+  SCRIPT.ID = id
+  SCRIPT.Path = path
+  SCRIPT.Name = "Name"
+  SCRIPT.Author = "Author"
+  SCRIPT.Desc = "Description"
+
+  _G["SCRIPT"] = SCRIPT
+
+  if not singleFile then
+    requireScript(path.."/addon.lua")
+  else
+    requireScript(path)
+  end
+end
+
 function scriptLoader.LoadScripts()
-  info = jsonInterface.load("scripts.json")
+  local info = jsonInterface.load("scripts.json")
 
   if(info == nil) then
     info = {}
   end
 
   for _,v in pairs(info) do
-    requireScript("addons/"..v)
+    if isDir(v) then
+      scriptLoader.Load(v, "addons/"..v, false)
+    else
+      scriptLoader.Load(v, "addons/"..v, true)
+    end
   end
 end
 
@@ -197,33 +249,17 @@ function scriptLoader.Reload(id)
 end
 
 --[[
-    Our object for scripts.
+    Object functions for scripts.
 --]]
-function scriptLoader.DefineScript()
-	local object = {}
-
-	setmetatable(object, scriptMeta)
-
-	object.Hooks = {}
-  object.Methods = {}
-
-	object.ID = nil
-	object.Name = "Name"
-	object.Author = "Author"
-	object.Desc = "Description"
-
-	return object
-end
-
-function scriptMeta:AddMethod(id, callback)
-  self.Methods[id] = {
+function scriptMeta:AddHook(name, id, callback)
+  self.Hooks[id] = {
+    name = name,
     func = callback
   }
 end
 
-function scriptMeta:AddHook(name, id, callback)
-  self.Hooks[id] = {
-    name = name,
+function scriptMeta:AddMethod(id, callback)
+  self.Methods[id] = {
     func = callback
   }
 end
@@ -263,6 +299,10 @@ function scriptMeta:Register()
 
   scripts[id] = self
 	self:Inject() --We load all scripts.
+
+  _G["SCRIPT"] = nil --Garbage collection since the global is no longer needed once script is registered.
+
+  scriptLoader.CallHook("ScriptRegistered")
 end
 
 function scriptMeta:Unregister()
@@ -272,6 +312,8 @@ function scriptMeta:Unregister()
 	if scripts[id] then
 		self:Eject()
 	end
+
+  scriptLoader.CallHook("ScriptUnregistered")
 end
 
 function scriptMeta:Reload()
@@ -279,5 +321,4 @@ function scriptMeta:Reload()
 	self:Register()
 end
 
-scriptMeta.__index = scriptMeta
 return scriptLoader

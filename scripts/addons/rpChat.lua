@@ -681,8 +681,7 @@ function IsLocalChatEnabled()
   return enableLocalChat
 end
 
-local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = "rpchat"
+local SCRIPT = SCRIPT
 SCRIPT.Name = "rpChat"
 SCRIPT.Author = "David-AW, fixes from Wishbone"
 SCRIPT.Desc = "Adds localchat, ooc and looc to tes3mp"

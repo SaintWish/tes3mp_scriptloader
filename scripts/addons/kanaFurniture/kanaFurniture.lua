@@ -16,6 +16,7 @@
 	[ kanaFurniture.OnServerPostInit() ]
 ]]
 
+local SCRIPT = SCRIPT
 local config = {}
 config.whitelist = false --If true, the player must be given permission to place items in the cell that they're in (set using this script's methods, or editing the world.json). Note that this only prevents placement, players can still move/remove items they've placed in the cell.
 config.sellbackModifier = 0.75 -- The base cost that an item is multiplied by when selling the items back (0.75 is 75%)
@@ -600,8 +601,7 @@ local function onViewOptionSelect(pid)
 	local cell = tes3mp.GetCell(pid)
 
 	if getObject(choice.refIndex, cell) then
-		--decorateHelp.SetSelectedObject(pid, choice.refIndex)
-		scriptLoader.CallMethod("decoratehelp", "SetSelectedObject", pid, choice.refIndex)
+		SCRIPT:SetSelectedObject(pid, choice.refIndex)
 		tes3mp.MessageBox(pid, -1, "Object selected, use /dh to move.")
 	else
 		tes3mp.MessageBox(pid, -1, "The object seems to have been removed.")
@@ -716,8 +716,7 @@ local function onInventoryOptionPlace(pid)
 	--Update the database of all placed furniture
 	addPlaced(furnRefIndex, curCell, pname, choice.refId, true)
 	--Set the placed item as the player's active object for decorateHelp to use
-	--decorateHelp.SetSelectedObject(pid, furnRefIndex)
-	scriptLoader.CallMethod("decoratehelp", "SetSelectedObject", pid, furnRefIndex)
+	SCRIPT:SetSelectedObject(pid, furnRefIndex)
 end
 
 local function onInventoryOptionSell(pid)
@@ -806,12 +805,6 @@ local function onMainView(pid)
 	showViewGUI(pid)
 end
 
-local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = "kanafurniture"
-SCRIPT.Name = "KanaFurniture"
-SCRIPT.Author = "Atkana"
-SCRIPT.Desc = "Decorate your house with furniture."
-
 SCRIPT:AddMethod("AddFurnitureData", function(data)
 	addFurnitureData(data)
 end)
@@ -892,7 +885,7 @@ SCRIPT:AddMethod("TransferOwnership", function(refIndex, cell, playerCurrentName
 	--Unset the current player's selected item, just in case they had that furniture as their selected item
 	if playerCurrentName and logicHandler.IsPlayerNameLoggedIn(playerCurrentName) then
 		--decorateHelp.SetSelectedObject(logicHandler.GetPlayerByName(playerCurrentName).pid, "")
-		scriptLoader.CallMethod("decoratehelp", "SetSelectedObject", logicHandler.GetPlayerByName(playerCurrentName).pid, "")
+		SCRIPT:SetSelectedObject(logicHandler.GetPlayerByName(playerCurrentName).pid, "")
 	end
 end)
 
@@ -916,7 +909,7 @@ SCRIPT:AddMethod("TransferAllOwnership", function(cell, playerCurrentName, playe
 	--Unset the current player's selected item, just in case they had any of the furniture as their selected item
 	if playerCurrentName and logicHandler.IsPlayerNameLoggedIn(playerCurrentName) then
 		--decorateHelp.SetSelectedObject(logicHandler.GetPlayerByName(playerCurrentName).pid, "")
-		scriptLoader.CallMethod("decoratehelp", "SetSelectedObject", logicHandler.GetPlayerByName(playerCurrentName).pid, "")
+		SCRIPT:SetSelectedObject(logicHandler.GetPlayerByName(playerCurrentName).pid, "")
 	end
 end)
 

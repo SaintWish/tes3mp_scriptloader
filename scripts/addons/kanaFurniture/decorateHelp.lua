@@ -18,6 +18,7 @@
 ]]
 
 ------
+local SCRIPT = SCRIPT
 local config = {}
 
 config.MainId = 31360
@@ -166,15 +167,9 @@ local function setSelectedObject(pid, refIndex)
 	playerSelectedObject[tes3mp.GetName(pid)] = refIndex
 end
 
-local SCRIPT = scriptLoader.DefineScript()
-SCRIPT.ID = "decoratehelp"
-SCRIPT.Name = "Decorate Help"
-SCRIPT.Author = "Atkana"
-SCRIPT.Desc = "Decorator help"
-
-SCRIPT:AddMethod("SetSelectedObject", function(pid, refIndex)
+function SCRIPT:SetSelectedObject(pid, refIndex)
 	setSelectedObject(pid, refIndex)
-end)
+end
 
 SCRIPT:AddHook("OnObjectPlace", "DH_ObjectPlacing", function(pid, cellDescription)
   --Get the last event, which should hopefully be the place packet
